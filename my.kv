@@ -1,0 +1,1793 @@
+#:import MDIconButton kivymd.uix.button.MDIconButton
+#:import MDFlatButton kivymd.uix.button.MDFlatButton
+#:import MDRectangleFlatIconButton kivymd.uix.button.MDRectangleFlatIconButton
+#:import MDCard kivymd.uix.card
+#:import MDSeparator kivymd.uix.card.MDSeparator
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDIcon kivymd.uix.textfield.MDIcon
+#:import MDTextFieldRound kivymd.uix.textfield.MDTextFieldRound
+
+
+
+
+<MainPage>:
+    name: "main"
+    tb : tb
+
+    BoxLayout:
+        orientation: 'vertical'
+        MDToolbar:
+            title: 'Rajdhar'
+            id: tb
+            left_action_items: [["menu", lambda x:None]]
+            right_action_items: [["dots-vertical", lambda x:root.show_themepicker(x)]]
+            elevation: 10
+
+
+        FloatLayout:
+            pos_hint: {"y":0.6}
+
+
+            MDSeparator:
+                pos_hint: {"x":0.05, "y":0.63}
+                size_hint_x: 0.9
+
+            FloatLayout:
+                orientation: 'vertical'
+                cols:2
+                rows:2
+
+                MDCard:
+                    size_hint: 0.425, .25
+                    pos_hint: {"x":0.05,"y":0.35}
+                    orientation: 'vertical'
+                    elevation: 12
+
+                    MDIconButton:
+                        size_hint_y: .8
+                        size_hint_x: 1
+                        icon: "bank-plus"
+                        user_font_size: '50sp'
+                        allow_stretch: True
+                        #keep_ratio: False
+                        on_release:
+
+                            root.newentrybtn()
+
+                    MDFlatButton:
+                        size_hint_y: .2
+                        size_hint_x: 1
+                        pos_hint_y: .4
+                        text: "New Entry"
+                        bold: True
+                        on_release:
+                            root.manager.transition.direction = "left"
+                            root.newentrybtn()
+
+                MDCard:
+                    size_hint: 0.425, .25
+                    pos_hint: {"x":0.525,"y":0.35}
+                    orientation: 'vertical'
+                    elevation: 12
+
+                    MDIconButton:
+                        size_hint_y: .8
+                        size_hint_x: 1
+                        icon: "bank-transfer"
+                        user_font_size: '70sp'
+                        allow_stretch: True
+                        #keep_ratio: False
+                        on_release:
+
+                            root.searchentrybtn()
+
+                    MDFlatButton:
+                        size_hint_y: .2
+                        size_hint_x: 1
+                        pos_hint_y: .4
+                        text: "Settle/Update"
+                        bold: True
+                        on_release:
+
+                            root.searchentrybtn()
+
+
+                MDCard:
+                    size_hint: 0.425, .25
+                    pos_hint: {"x":0.05,"y":0.05}
+                    orientation: 'vertical'
+                    elevation: 12
+
+                    MDIconButton:
+                        size_hint_y: .8
+                        size_hint_x: 1
+                        icon: "cash-usd-outline"
+                        user_font_size: '70sp'
+                        allow_stretch: True
+                        #keep_ratio: False
+                        on_release:
+
+                            root.due_btn()
+
+
+                    MDFlatButton:
+                        size_hint_y: .2
+                        size_hint_x: 1
+                        pos_hint_y: .4
+                        text: "Due Amounts"
+                        bold: True
+                        on_release:
+
+                            root.due_btn()
+
+
+
+                MDCard:
+                    size_hint: 0.425, .25
+                    pos_hint: {"x":0.525,"y":0.05}
+                    orientation: 'vertical'
+                    elevation: 12
+
+                    MDIconButton:
+                        size_hint_y: .8
+                        size_hint_x: 1
+                        icon: "chart-bar"
+                        user_font_size: '70sp'
+                        allow_stretch: True
+                        #keep_ratio: False
+                        on_release:
+                            root.csvfun()
+
+
+                    MDFlatButton:
+                        size_hint_y: .2
+                        size_hint_x: 1
+                        pos_hint_y: .4
+                        text: "Reports"
+                        bold: True
+                        on_release:
+                            root.csvfun()
+
+
+
+
+############################################################################################
+
+
+<NewEntry>:
+    name: "newentry"
+
+    namee_a: namee
+    phone_a: phone
+    add_a: address
+    type_a: type
+    wt_a: wt
+    datee_a: datee
+    gs_a: gs
+    totalamt_a: totalamt
+    balamt_a: balamt
+    rate_a: rate
+
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+
+            MDBottomAppBar:
+                MDToolbar:
+                    title: "New Entry"
+                    icon: "plus"
+                    type: "bottom"
+                    left_action_items: [["arrow-left", lambda x: root.samplebtn(x)]]
+                    on_action_button: root.new_diag(self.icon)
+                    icon_color: app.theme_cls.accent_color
+                    elevation: 10
+
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":0.99}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.90}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                id: namee
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+                required: True
+                icon_left: "account"
+                multiline: False
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.82}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                id: phone
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+                input_filter: 'int'
+                max_text_length: 10
+                icon_left: "email"
+                multiline: False
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.74}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                id: address
+                hint_text: "City"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+                icon_left: "email"
+                multiline: False
+
+
+            MDLabel:
+                text: "JEWEL INFO"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.68}
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.60}
+                size_hint: 0.375, 0.1
+                font_size: dp(22)
+                hint_text: "Type"
+                helper_text: "Eg. Chain, Ring"
+                helper_text_mode: "on_focus"
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+                icon_left: "email"
+                id: type
+                multiline: False
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.60}
+                size_hint: 0.375, 0.1
+                font_size: dp(22)
+                id: wt
+                hint_text: "Weight"
+                helper_text: "Jewel Weight"
+                helper_text_mode: "on_focus"
+                required: True
+                input_filter: 'float'
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.50}
+                size_hint: 0.375, 0.1
+                font_size: dp(22)
+                hint_text: "Bal Amt"
+                helper_text: "Only Numeric Input"
+                helper_text_mode: "on_error"
+                required: True
+                input_filter: 'float'
+                icon_left: "email"
+                id: balamt
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                size_hint: 0.375,0.1
+                pos_hint: {"x":0.525, "top":0.50}
+                font_size: dp(22)
+                id: totalamt
+                hint_text: "Total Amt"
+                helper_text: "Jewel Value"
+                helper_text_mode: "on_focus"
+                required: False
+                input_filter: 'float'
+                icon_left: "email"
+                text: ""
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.40}
+                size_hint: 0.375, 0.1
+                font_size: dp(22)
+                hint_text: "G/S"
+                helper_text: "G: gold/ S: Silver"
+                helper_text_mode: "on_focus"
+                required: False
+                icon_left: "email"
+                id: gs
+                text: ''
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.40}
+                size_hint: 0.375, 0.1
+                font_size: dp(22)
+                id: rate
+                hint_text: "Rate"
+                helper_text: "Interest Rate"
+                helper_text_mode: "on_focus"
+                input_filter: 'float'
+                icon_left: "bank-plus"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.5, "top":0.30}
+                size_hint: 0.250, 0.1
+                font_size: dp(22)
+                id: datee
+                hint_text: "Date"
+                helper_text: "Start Date"
+                helper_text_mode: "on_focus"
+                required: True
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDRaisedButton:
+                pos_hint: {"x":0.25, "top":0.29}
+                size_hint: 0.200, 0.06
+                icon: "calender-range"
+                text: "Pick Date"
+                user_font_size: '30sp'
+                allow_stretch: True
+                #keep_ratio: False
+                on_release:
+                    root.show_datepicker()
+
+
+
+
+
+
+
+###########################################################################################################################################
+
+
+
+###########################################################################################################################################
+
+
+<SearchName>:
+    name: "searchname"
+
+    container: container
+    main_container: main_container
+
+    namesearch_d: namesearchx
+    fil_btn: fil_btn
+
+    FloatLayout:
+        id: main_container
+
+
+
+    GridLayout:
+
+        rows: 3
+        cols: 1
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: 0,0,0.5,0.2
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [25, 25, 0, 0]
+            size_hint: 1,.20
+
+            MDLabel:
+                text: "SEARCH ENTRY"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":0.85}
+
+
+            MDTextFieldRound:
+                pos_hint: {"x":0.15, "top":0.50}
+                size_hint: 0.4, 0.3
+                id: namesearchx
+                hint_text: "Name"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                required: True
+                normal_color: 1,1,1,1
+                color_active: 1,1,1,1
+                icon_left: "magnify"
+                multiline: False
+
+
+
+            MDRaisedButton:
+                pos_hint: {"x":0.63, "top":0.50}
+                size_hint: 0.20, 0.30
+                text: "Search"
+                on_release:
+                    root.nameclick()
+
+            MDIconButton:
+                icon: "filter"
+                pos_hint: {"x":0.80, "top":0.65}
+                user_font_size: "35sp"
+                id: fil_btn
+                elevation_normal: 12
+                text: "Filter"
+                on_release:
+
+            MDLabel:
+                text: "filter"
+                font_style: "Caption"
+                pos_hint: {"x":0.82, "top":0.64}
+
+
+            MDSeparator:
+                size_hint_x: 1
+                pos_hint: {"top":0}
+                height: dp(4)
+                color : 0,0,0,0.6
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: (1, .75)
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars', 'content']
+
+
+
+            BoxLayout:
+                id: container
+                orientation: 'vertical'
+                size_hint_y: None
+                spacing: dp(6)
+
+        MDToolbar:
+            title: "Search Entry"
+            type: "bottom"
+            mode: "free-end"
+            left_action_items: [["arrow-left", lambda x: root.func(x)]]
+            elevation: 10
+
+
+
+##############################################################################################################################################
+
+<SettleScreen>:
+    name: "settlescreen"
+    namee_z : nameef
+    phone_z: phonef
+    type_z: type
+    wt_z: wt
+    gs_z: gs
+    settle_btn : settle_btn
+
+    amt_lbl : amt_lbl
+    date_lbl : date_lbl
+    value_lbl : value_lbl
+    rate_lbl : rate_lbl
+    duration_lbl : duration_lbl
+    amount_lbl : amount_lbl
+    int_lbl : int_lbl
+    close_lbl : close_lbl
+    tick_lbl : tick_lbl
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                bold: True
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.99}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.90}
+                size_hint: 0.375, 0.1
+                id: nameef
+                font_size: dp(18)
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.90}
+                size_hint: 0.375, 0.1
+                id: phonef
+                font_size: dp(18)
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.80}
+                size_hint: 0.233, 0.1
+                hint_text: "Type"
+                font_size: dp(18)
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+
+                readonly: True
+                icon_left: "email"
+                id: type
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.383, "top":0.80}
+                size_hint: 0.233, 0.1
+                id: wt
+                font_size: dp(18)
+                hint_text: "Weight"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.666, "top":0.80}
+                size_hint: 0.233, 0.1
+                hint_text: "G/S"
+                font_size: dp(18)
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                required: True
+                icon_left: "email"
+                id: gs
+                readonly: True
+                text: ''
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDCard:
+                pos_hint: {"x":0.1, "top":0.70}
+                size_hint: 0.8, 0.5
+
+                FloatLayout:
+                    orientation : 'vertical'
+
+                    MDLabel:
+                        pos_hint: {"x":0.05,"y":0.25}
+                        font_style: "Body1"
+                        id: date_lbl
+                        height: self.texture_size[1]
+                        text: "Date:"
+
+                    MDLabel:
+                        pos_hint: {"x":0.30,"y":0.25}
+                        font_style: "Body1"
+                        id: amt_lbl
+                        text: "Amt"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.45}
+                        font_style: "Body1"
+                        id: value_lbl
+                        text: "Value:10000"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.35}
+                        font_style: "Body1"
+                        id: rate_lbl
+                        text: "Rate: 3%"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.25}
+                        font_style: "Body1"
+                        id: duration_lbl
+                        text: "Duration: "
+                        height: self.texture_size[1]
+
+
+
+                    MDSeparator:
+                        pos_hint: {"x":0.05, "y":0.47}
+                        size_hint_x: 0.9
+
+                    MDSeparator:
+                        pos_hint: {"x":.55, "y":0.50}
+                        orientation: 'vertical'
+                        size_hint_y: .47
+
+                    MDLabel:
+                        pos_hint: {"x": 0.1, "y": -0.1}
+                        font_style: "Body1"
+                        text: "Total Interest: "
+                        id: int_lbl
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x": 0.1, "y": -0.2}
+                        font_style: "H6"
+                        text: "Amount to be received"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x": 0.15, "y": -0.3}
+                        font_style: "H5"
+                        text: "Rs: "
+                        id: amount_lbl
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x": 0.1, "y": -0.45}
+                        font_style: "Body1"
+                        text: ""
+                        id: close_lbl
+                        height: self.texture_size[1]
+
+                    Image:
+                        pos_hint: {"x": 0.75, "y": .13}
+                        size_hint: 0.2,0.2
+                        id: tick_lbl
+
+
+
+
+    MDToolbar:
+        title: "Close Entry"
+        type: "bottom"
+        mode: "free-end"
+        left_action_items: [["arrow-left", lambda x: root.backbtn(x)]]
+        elevation: 10
+
+
+    MDFillRoundFlatButton:
+        pos_hint:{"x":0.05,"top":0.13}
+        size_hint: 0.233, 0.07
+        text: "Info\nUpdate"
+        text_color: 1,1,1,1
+        md_bg_color: 0,0,0,1
+        on_release:
+            root.manager.transition.direction = "left"
+
+
+
+    MDFillRoundFlatButton:
+        pos_hint:{"x":0.333,"top":0.13}
+        size_hint: 0.333, 0.07
+        id: settle_btn
+        text: "CLOSE"
+        text_color: 0,0,0,1
+        md_bg_color: app.theme_cls.accent_color
+        on_release:
+            root.manager.transition.direction = "left"
+            root.settle_pps()
+
+    MDFillRoundFlatButton:
+        pos_hint:{"x":0.716,"top":0.13}
+        size_hint: 0.233, 0.07
+        text: "Amount\nUpdate"
+        text_color: 1,1,1,1
+        label_text_style: "Subtitle1"
+        md_bg_color: 0,0,0,1
+        on_release:
+            root.manager.transition.direction = "left"
+            root.updatebtn()
+
+###########################################################################################################################################
+
+
+
+
+###########################################################################################################################################
+
+
+
+<UpdateScreen>
+    name: 'updatescreen'
+
+    namee_z: nameef
+    phone_z: phonef
+    type_z: type
+    wt_z: wt
+    gs_z: gs
+
+    amt_lbl : amt_lbl
+    date_lbl : date_lbl
+    value_lbl : value_lbl
+    rate_lbl : rate_lbl
+    duration_lbl : duration_lbl
+
+
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                bold: True
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.99}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.90}
+                size_hint: 0.375, 0.1
+                id: nameef
+                font_size: dp(18)
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.90}
+                size_hint: 0.375, 0.1
+                id: phonef
+                font_size: dp(18)
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.80}
+                size_hint: 0.233, 0.1
+                hint_text: "Type"
+                font_size: dp(18)
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                id: type
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.383, "top":0.80}
+                size_hint: 0.233, 0.1
+                id: wt
+                font_size: dp(18)
+                hint_text: "Weight"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.666, "top":0.80}
+                size_hint: 0.233, 0.1
+                hint_text: "G/S"
+                font_size: dp(18)
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                id: gs
+                text: ''
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDCard:
+                pos_hint: {"x":0.1, "top":0.70}
+                size_hint: 0.8, 0.5
+
+                FloatLayout:
+                    orientation : 'vertical'
+
+                    MDLabel:
+                        pos_hint: {"x":0.05,"y":0.25}
+                        font_style: "Body1"
+                        id: date_lbl
+                        height: self.texture_size[1]
+                        text: "Date:"
+
+                    MDLabel:
+                        pos_hint: {"x":0.30,"y":0.25}
+                        font_style: "Body1"
+                        id: amt_lbl
+                        text: "Amt"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.45}
+                        font_style: "Body1"
+                        id: value_lbl
+                        text: "Value:10000"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.35}
+                        font_style: "Body1"
+                        id: rate_lbl
+                        text: "Rate: 3%"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.25}
+                        font_style: "Body1"
+                        id: duration_lbl
+                        text: "Duration: 8m 20d"
+                        height: self.texture_size[1]
+
+                    MDSeparator:
+                        pos_hint: {"x":0.05, "y":0.47}
+                        size_hint_x: 0.9
+
+                    MDSeparator:
+                        pos_hint: {"x":.55, "y":0.50}
+                        orientation: 'vertical'
+                        size_hint_y: .47
+
+    MDToolbar:
+        title: "Update Amount"
+        type: "bottom"
+        mode: "free-end"
+        left_action_items: [["arrow-left", lambda x: root.backbtn(x)]]
+        right_action_items: [["pencil", lambda x: root.edit_bal(x)]]
+        elevation: 10
+
+
+
+    MDFillRoundFlatIconButton:
+        pos_hint:{"x":0.2,"top":0.13}
+        size_hint: 0.250, 0.07
+        text: "Add"
+        icon: "plus"
+        user_font_size: '50sp'
+        md_bg_color: 0.9, 0, 0, 1
+        on_release: root.add_diag()
+
+    MDFillRoundFlatIconButton:
+        pos_hint:{"x":0.55,"top":0.13}
+        size_hint: 0.250, 0.07
+        text: "Received"
+        icon: "minus"
+        padding: dp(10)
+        user_font_size: '50sp'
+        md_bg_color: 0.1, 0.430, 0.132,1
+        on_release: root.minus_diagA()
+
+###########################################################################################################################################
+
+<DueScreen>:
+    name: 'duescreen'
+    namesearch_d:namesearch_d
+    container:container
+    GridLayout:
+
+        rows: 3
+        cols: 1
+
+        FloatLayout:
+            canvas:
+                Color:
+                    rgba: 0,0,0.5,0.2
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [25, 25, 0, 0]
+            size_hint: 1,.20
+
+            MDLabel:
+                text: "SEARCH ENTRY"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":0.90}
+
+            MDTextFieldRound:
+
+                pos_hint: {"x":0.15, "top":0.63}
+                size_hint_x: 0.4
+                size_hint_y: 0.3
+                id: namesearch_d
+                normal_color: 1,1,1,1
+                color_active: 1,1,1,1
+                icon_left: 'magnify'
+                hint_text: "Name"
+                font_size: dp(20)
+                required: True
+                multiline: False
+
+
+
+
+            MDRaisedButton:
+                pos_hint: {"x":0.6, "top":0.65}
+                size_hint: 0.20, 0.30
+                text: "Search"
+                on_release:
+                    root.search_btn()
+
+            MDIconButton:
+                icon: "filter"
+                pos_hint: {"x":0.80, "top":0.85}
+                user_font_size: "35sp"
+                id: fil_btn
+                elevation_normal: 12
+                text: "Filter"
+                on_release:
+
+            MDLabel:
+                text: "filter"
+                font_style: "Caption"
+                pos_hint: {"x":0.82, "top":0.74}
+
+            MDSeparator:
+                size_hint_x: 1
+                pos_hint: {"top":0}
+                height: dp(4)
+                color : 0,0,0,0.6
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: 1,0.90
+            bar_width: 10
+            bar_color: 1, 0, 0, 1   # red
+            bar_inactive_color: 0, 0, 1, 1   # blue
+            effect_cls: "ScrollEffect"
+            scroll_type: ['bars', 'content']
+
+            BoxLayout:
+                id: container
+                orientation: 'vertical'
+                size_hint_top: 0.90
+                spacing: dp(10)
+
+                mg_bg_color: 1,0,1,1
+
+
+
+
+        BoxLayout:
+            size_hint_y: 0.15
+            MDBottomAppBar:
+                MDToolbar:
+                    title: "Due Entry"
+                    icon: "plus"
+                    type: "bottom"
+                    left_action_items: [["arrow-left", lambda x: root.back_btn(x)]]
+                    elevation: 10
+                    on_action_button: root.due_diag(self.icon)
+                    icon_color: app.theme_cls.accent_color
+
+
+
+
+
+
+
+
+
+###########################################################################################################################################
+
+
+<DueEntry>:
+    name: 'dueentry'
+    namee_d:namee_d
+    phone_d:phone_d
+    add_d:add_d
+    amt_d:amt_d
+    reason_d:reason_d
+    datee_d:datee_d
+    id: due_entry
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":1}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.89}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                id: namee_d
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.75}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: phone_d
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+                input_filter: 'int'
+                max_text_length: 10
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.75}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: add_d
+                hint_text: "City"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDLabel:
+                text: "DUE INFO"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.61}
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.51}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                hint_text: "Due Amount"
+                helper_text: "Amount Pending"
+                input_filter: 'int'
+                helper_text_mode: "on_focus"
+                icon_left: "email"
+                id: amt_d
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.37}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                hint_text: "Reason"
+                helper_text: "Reason for due"
+                helper_text_mode: "on_focus"
+                required: True
+                icon_left: "email"
+                id: reason_d
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.20}
+                size_hint_x: 0.250
+                font_size: dp(22)
+                id: datee_d
+                hint_text: "Date"
+                helper_text: "Start Date"
+                helper_text_mode: "on_focus"
+                required: True
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDRaisedButton:
+                pos_hint: {"x":0.25, "top":0.18}
+                size_hint: 0.200, 0.08
+                icon: "calender-range"
+                text: "Pick Date"
+                user_font_size: '30sp'
+                allow_stretch: True
+                #keep_ratio: False
+                on_release:
+                    root.show_datepicker()
+
+
+################################################################################################################################
+
+<UpdateDue>:
+    name: 'updatedue'
+    namee_d:namee_d
+    phone_d:phone_d
+    add_d:add_d
+
+
+    reason_d:reason_d
+    value_lbl:value_lbl
+    duration_lbl:duration_lbl
+    date_lbl:date_lbl
+    amt_lbl:amt_lbl
+    amount_lbl : amount_lbl
+    close_btn_lbl : close_btn_lbl
+    close_lbl : close_lbl
+    tick_lbl : tick_lbl
+
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":1}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.92}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                id: namee_d
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.82}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: phone_d
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+                input_filter: 'int'
+                max_text_length: 10
+                readonly: True
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.82}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: add_d
+                hint_text: "City"
+                helper_text: "Customer City"
+                helper_text_mode: "on_focus"
+                icon_left: "email"
+                readonly: True
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDLabel:
+                text: "DUE INFO"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.76}
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.67}
+                size_hint_x: 0.8
+                font_size: dp(22)
+                hint_text: "Reason"
+                helper_text: "Reason for due"
+                helper_text_mode: "on_error"
+                required: True
+                icon_left: "email"
+                id: reason_d
+                readonly: True
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDCard:
+                pos_hint: {"x":0.1, "top":0.55}
+                size_hint: 0.8, 0.35
+
+                FloatLayout:
+                    orientation : 'vertical'
+
+                    MDLabel:
+                        pos_hint: {"x":0.05,"y":0.25}
+                        font_style: "Body1"
+                        id: date_lbl
+                        height: self.texture_size[1]
+                        text: "Date:"
+
+                    MDLabel:
+                        pos_hint: {"x":0.30,"y":0.25}
+                        font_style: "Body1"
+                        id: amt_lbl
+                        text: "Amt"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.44}
+                        font_style: "Body1"
+                        id: value_lbl
+                        text: "Value:10000"
+                        height: self.texture_size[1]
+
+
+
+                    MDLabel:
+                        pos_hint: {"x":0.6,"y":0.25}
+                        font_style: "Body1"
+                        id: duration_lbl
+                        text: "Duration: 8m 20d"
+                        height: self.texture_size[1]
+
+                    MDSeparator:
+                        pos_hint: {"x":0.05, "y":0.47}
+                        size_hint_x: 0.9
+
+                    MDSeparator:
+                        pos_hint: {"x":.55, "y":0.50}
+                        orientation: 'vertical'
+                        size_hint_y: .47
+
+                    MDLabel:
+                        pos_hint: {"x": 0.1, "y": -0.15}
+                        font_style: "H6"
+                        text: "Amount to be received"
+                        height: self.texture_size[1]
+
+                    MDLabel:
+                        pos_hint: {"x": 0.15, "y": -0.28}
+                        font_style: "H5"
+                        text: "Rs: "
+                        id: amount_lbl
+                        height: self.texture_size[1]
+
+                    Image:
+                        pos_hint: {"x": 0.75, "y": .13}
+
+                        size_hint: 0.2,0.2
+                        id: tick_lbl
+
+
+                    MDLabel:
+                        pos_hint: {"x": 0.1, "y": -0.43}
+                        font_style: "Body1"
+                        text: ""
+                        id: close_lbl
+                        height: self.texture_size[1]
+
+
+
+            MDToolbar:
+                title: "Due Update"
+                type: "bottom"
+                mode: "free-end"
+                left_action_items: [["arrow-left", lambda x: root.bck(x)]]
+                right_action_items: [["pencil", lambda x: root.edit_bal(x)]]
+                elevation: 10
+
+
+            MDFillRoundFlatIconButton:
+                pos_hint: {"x":0.1, "top":0.13}
+                size_hint: 0.233, 0.08
+                md_bg_color: 0,0,0,1
+                text: "Update"
+
+            MDFillRoundFlatIconButton:
+                pos_hint: {"x":0.383, "top":0.130}
+                size_hint: 0.233, 0.08
+                md_bg_color: 0,0,0,1
+                text: "Close"
+                id: close_btn_lbl
+                on_press: root.diag()
+
+            MDFillRoundFlatIconButton:
+                pos_hint: {"x":0.666, "top":0.130}
+                size_hint: 0.233, 0.08
+                md_bg_color: 0,0,0,1
+                icon: "minus"
+                text: "Receive"
+                on_press: root.minus_diag()
+
+
+###############################################################################################
+
+<AmtUpdate>:
+    name: "amtupdate"
+
+    namee_d : namee_d
+    phone_d : phone_d
+
+    amt_1:amt_1
+    amt_2:amt_2
+    amt_3:amt_3
+    amt_4:amt_4
+    amt_5:amt_5
+
+    date_1:date_1
+    date_2:date_2
+    date_3:date_3
+    date_4:date_4
+    date_5:date_5
+
+    chip_1:chip_1
+    chip_2:chip_2
+    chip_3:chip_3
+    chip_4:chip_4
+    chip_5:chip_5
+
+
+    FloatLayout:
+        cols:1
+
+        FloatLayout:
+
+            MDLabel:
+                text: "CUSTOMER INFO"
+                color: 0, 0, 0, 1
+                size_hint: 0.5, 0.12
+                font_style: "H6"
+                pos_hint: {"x":0.05, "top":1}
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.92}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: namee_d
+                hint_text: "Name"
+                helper_text: "Customer Name"
+                helper_text_mode: "on_focus"
+                max_text_length: 10
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+
+
+            MDTextField:
+                pos_hint: {"x":0.525, "top":0.92}
+                size_hint_x: 0.375
+                font_size: dp(22)
+                id: phone_d
+                hint_text: "Phone"
+                helper_text: "Customer Phone"
+                helper_text_mode: "on_focus"
+                icon_left: "email"
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDLabel:
+                text: "Update Amounts"
+                color: 0, 0, 0, 1
+                font_style: "H6"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.05, "top":0.86}
+
+
+            MDLabel:
+                text: "Amount"
+                color: 0, 0, 0, 1
+                font_style: "Subtitle2"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.1, "top":0.80}
+            MDLabel:
+                text: "Date"
+                color: 0, 0, 0, 1
+                font_style: "Subtitle2"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.45, "top":0.80}
+            MDLabel:
+                text: "Interest..?"
+                color: 0, 0, 0, 1
+                font_style: "Subtitle2"
+                size_hint: 0.5, 0.12
+                pos_hint: {"x":0.8, "top":0.80}
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.72}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Amount"
+                icon_left: "email"
+                id: amt_1
+                input_filter: 'int'
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.45, "top":0.72}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Date"
+
+                icon_left: "email"
+                id: date_1
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDChip:
+                color: 0,0,0,.5
+                label: '1'
+                icon: ''
+                check: True
+                id: chip_1
+                size_hint_x: 0.1
+                pos_hint: {"x":0.820, "top":0.69}
+                callback: root.chip_c
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.62}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Amount"
+
+                icon_left: "email"
+                id: amt_2
+                input_filter: 'int'
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.45, "top":0.62}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Date"
+
+                icon_left: "email"
+                id: date_2
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDChip:
+                color: 0,0,0,.5
+                label: '2'
+                icon: ''
+                check: True
+                size_hint_x: 0.1
+                id: chip_2
+                pos_hint: {"x":0.820, "top":0.59}
+                callback: root.chip_c
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.52}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Amount"
+
+                icon_left: "email"
+                id: amt_3
+                input_filter: 'int'
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.45, "top":0.52}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Date"
+
+                icon_left: "email"
+                id: date_3
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDChip:
+                color: 0,0,0,.5
+                label: '3'
+                icon: ''
+                check: True
+                size_hint_x: 0.1
+                id: chip_3
+                pos_hint: {"x":0.820, "top":0.49}
+                callback: root.chip_c
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.42}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Amount"
+
+                icon_left: "email"
+                id: amt_4
+                input_filter: 'int'
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.45, "top":0.42}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Date"
+
+                icon_left: "email"
+                id: date_4
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+
+            MDChip:
+                color: 0,0,0,.5
+                label: '4'
+                icon: ''
+                check: True
+                size_hint_x: 0.1
+                id: chip_4
+                pos_hint: {"x":0.820, "top":0.39}
+                callback: root.chip_c
+
+
+            MDTextField:
+                pos_hint: {"x":0.1, "top":0.32}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Amount"
+
+                icon_left: "email"
+                id: amt_5
+                input_filter: 'int'
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDTextField:
+                pos_hint: {"x":0.45, "top":0.32}
+                size_hint_x: 0.300
+                font_size: dp(22)
+                hint_text: "Date"
+
+                icon_left: "email"
+                id: date_5
+                multiline: False
+                color_mode: 'primary'
+                line_color_normal: app.theme_cls.accent_color
+                normal_color: app.theme_cls.accent_color
+
+            MDChip:
+                color: 0,0,0,.5
+                label: '5'
+                icon: ''
+                check: True
+                size_hint_x: 0.1
+                id: chip_5
+                pos_hint: {"x":0.820, "top":0.29}
+                callback: root.chip_c
+
+        MDBottomAppBar:
+            MDToolbar:
+                title: "Due Update"
+                icon: "upload"
+                mode: "end"
+                type: "bottom"
+                left_action_items: [["arrow-left", lambda x: root.bck(x)]]
+                on_action_button: root.update_diag(self.icon)
+                elevation: 10
+                icon_color: app.theme_cls.accent_color
+
+
+##############################################################################################################
+
+<Test>:
+    name : 'test'
+
+    MDBottomAppBar:
+        MDToolbar:
+            title: "Test"
+            mode: "free-end"
+            type: "bottom"
+            left_action_items: [["arrow-left", lambda x: root.bck(x)]]
+            elevation: 10
+
+
+    MDFlatButton:
+        text: "upload"
+        on_press:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
